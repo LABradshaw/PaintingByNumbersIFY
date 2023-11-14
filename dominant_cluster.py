@@ -1,48 +1,51 @@
 #! /usr/bin/env python3
-import faiss
+# import faiss
 from sklearn.cluster import KMeans
 import numpy as np
 from collections import Counter
 
 import image_utils
 
+'''
+Couldn't install faiss
+Temp removed GPU things
+'''
+# def kmeans_faiss(dataset, k):
+#     """
+#     Runs KMeans on GPU"
+#     """
+#     dims = dataset.shape[1]
+#     cluster = faiss.Clustering(dims, k)
+#     cluster.verbose = False
+#     cluster.niter = 20
+#     cluster.max_points_per_centroid = 10**7
 
-def kmeans_faiss(dataset, k):
-    """
-    Runs KMeans on GPU"
-    """
-    dims = dataset.shape[1]
-    cluster = faiss.Clustering(dims, k)
-    cluster.verbose = False
-    cluster.niter = 20
-    cluster.max_points_per_centroid = 10**7
+#     resources = faiss.StandardGpuResources()
+#     config = faiss.GpuIndexFlatConfig()
+#     config.useFloat16 = False
+#     config.device = 0
+#     index = faiss.GpuIndexFlatL2(resources, dims, config)
 
-    resources = faiss.StandardGpuResources()
-    config = faiss.GpuIndexFlatConfig()
-    config.useFloat16 = False
-    config.device = 0
-    index = faiss.GpuIndexFlatL2(resources, dims, config)
+#     # perform kmeans
+#     cluster.train(dataset, index)
+#     centroids = faiss.vector_float_to_array(cluster.centroids)
 
-    # perform kmeans
-    cluster.train(dataset, index)
-    centroids = faiss.vector_float_to_array(cluster.centroids)
-
-    return centroids.reshape(k, dims)
+#     return centroids.reshape(k, dims)
 
 
-def compute_cluster_assignment(centroids, data):
-    dims = centroids.shape[1]
+# def compute_cluster_assignment(centroids, data):
+#     dims = centroids.shape[1]
 
-    resources = faiss.StandardGpuResources()
-    config = faiss.GpuIndexFlatConfig()
-    config.useFloat16 = False
-    config.device = 0
+#     resources = faiss.StandardGpuResources()
+#     config = faiss.GpuIndexFlatConfig()
+#     config.useFloat16 = False
+#     config.device = 0
 
-    index = faiss.GpuIndexFlatL2(resources, dims, config)
-    index.add(centroids)
-    _, labels = index.search(data, 1)
+#     index = faiss.GpuIndexFlatL2(resources, dims, config)
+#     index.add(centroids)
+#     _, labels = index.search(data, 1)
 
-    return labels.ravel()
+#     return labels.ravel()
 
 
 def get_dominant_colors(image, n_clusters=10, use_gpu=True, plot=True):
