@@ -15,12 +15,12 @@ def simple_matrix_to_image(mat, palette):
 
 
 def PBNify(image_path, clusters=20, pre_blur=True):
-    image = image_utils.load_image(image_path, resize=False)
+    image = image_utils.load_image(image_path, resize=True)
     if pre_blur:
         image = process.blur_image(image)
 
     dominant_colors, quantized_labels, bar_image = dominant_cluster.get_dominant_colors(
-        image, n_clusters=clusters, use_gpu=True, plot=True)
+        image, n_clusters=clusters, use_gpu=False, plot=True)
 
     # Create final PBN image
     smooth_labels = process.smoothen(quantized_labels.reshape(image.shape[:-1]))
