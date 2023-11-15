@@ -19,9 +19,22 @@ optional arguments:
   --outline             Save outline image containing edges.
 ```
 
+old cmd example:
 ```
 python pbnify.py -i images/picasso.jpg -o images/picasso_PBN.jpg --outline -k 15
+python pbnify.py -i images/test.jpg -o images/test_PBN.jpg --outline -k 15
 ```
+
+cmd with no specified output (will save in same dir with auto generated name eg. test.jpg -> test_PBN.jpg)
+```
+python pbnify.py -i images/test.jpg --outline -k 15
+```
+
+cmd for batch (will create dir with auto generated name eg. images/ -> PBN_images_01/)
+```
+python pbnify.py -b images/ --outline -k 15
+```
+
 ### Original Image/s:
 <img src="https://github.com/CoderHam/PaintingByNumbersIFY/blob/master/images/dancing.jpg" width="400"/> <img src="https://github.com/CoderHam/PaintingByNumbersIFY/blob/master/images/picasso.jpg" width="400"/> <img src="https://github.com/CoderHam/PaintingByNumbersIFY/blob/master/images/hawaii_ham.jpg" width="400"/>
 
