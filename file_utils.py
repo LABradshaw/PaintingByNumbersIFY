@@ -31,3 +31,19 @@ def unique_filename(directory, filename):
         unique_name = f"{base}_{counter}{extension}"
         counter += 1
     return unique_name
+
+
+def unique_directory_name(directory, desired_dir_name):
+    """
+    Generate a unique directory name by appending a number if a directory with the same name exists.
+
+    :param directory: Target parent directory to create the new directory.
+    :param desired_dir_name: Desired directory name.
+    :return: A unique directory name as a string.
+    """
+    counter = 1
+    unique_dir_name = desired_dir_name
+    while os.path.exists(os.path.join(directory, unique_dir_name)):
+        unique_dir_name = f"{desired_dir_name}_{counter}"
+        counter += 1
+    return unique_dir_name
