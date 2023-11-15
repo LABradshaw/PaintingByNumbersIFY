@@ -48,18 +48,19 @@ Temp removed GPU things
 #     return labels.ravel()
 
 
-def get_dominant_colors(image, n_clusters=10, use_gpu=True, plot=True):
+def get_dominant_colors(image, n_clusters=10, use_gpu=False, plot=True,):
     # Must pass FP32 data to kmeans_faiss since faiss does not support uint8
     flat_image = image.reshape(
         (image.shape[0] * image.shape[1], 3)).astype(np.float32)
 
     if use_gpu:
-        centroids = kmeans_faiss(flat_image, n_clusters)
-        labels = compute_cluster_assignment(centroids,
-                                            flat_image).astype(np.uint8)
-        centroids = centroids.astype(np.uint8)
+        # centroids = kmeans_faiss(flat_image, n_clusters)
+        # labels = compute_cluster_assignment(centroids,
+        #                                     flat_image).astype(np.uint8)
+        # centroids = centroids.astype(np.uint8)
+        pass
     else:
-        clt = KMeans(n_clusters=n_clusters).fit(flat_image)
+        clt = KMeans(n_clusters=n_clusters, n_init=10).fit(flat_image)
         centroids = clt.cluster_centers_.astype(np.uint8)
         labels = clt.labels_.astype(np.uint8)
 
